@@ -1,7 +1,11 @@
 beautifulsoup4
 requests
+jsons
+selenium
+webdriver-manager
 authlib 
 werkzeug 
 flask
 pymysql
-jsons
+aiohttp
+aiodns

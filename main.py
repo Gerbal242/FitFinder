@@ -184,6 +184,7 @@ def prompt():
         print("     2 => Make An Account")
         print("     3 => View Catalog")
         print("     4 => Log Out")
+        print("     5 => Web Scrape")
 
         cmd = input()
 
@@ -236,9 +237,9 @@ def login(baseurl):
             data = {"username": username, "password": password, "duration": duration}
 
         api = "/auth"
-        auth_url = baseurl + api
+        api_url = baseurl + api
 
-        res = web_service_post(auth_url, data)
+        res = web_service_post(api_url, data)
 
         #
         # clear password variable:
@@ -327,16 +328,16 @@ def make_acc(baseurl):
         }
 
         api = "/make"
-        auth_url = baseurl + api
+        api_url = baseurl + api
 
-        res = web_service_post(auth_url, data)
+        res = web_service_post(api_url, data)
 
         #
         # let's look at what we got back:
         #
         if res.status_code == 401:
             #
-            # authentication failed:
+            # creation failed:
             #
             body = res.json()
             print(body)
@@ -363,6 +364,75 @@ def make_acc(baseurl):
         return
 
 
+############################################################
+#
+# web_scrape
+#
+def web_scrape(baseurl):
+    """
+    Promts the user for the url of the catalog that should be scraped.
+    Once obtained, a lambda function is called with this url that will
+    handle scrapping information and storing it all into a DB.
+    (****This is a developer tool) This tool would normally not be accesible to clients
+    but for the sake of simplicity, I wanted to combine all my clients into one area
+    to make showcasing easier. In a real situation this would be apart of a seperate developer
+    client that allows more information to be provided to the user.
+
+    Parameters
+    ----------
+    baseurl: url for web service
+
+    Returns
+    -------
+    Nothing
+    """
+    try:
+        # prompt the user with the url they want scraped
+        page_to_scrape = input("URL desired to scrape: ")
+
+        data = {
+            "url": page_to_scrape,
+        }
+
+        api = "/scrape"
+        api_url = baseurl + api
+        
+        print("**Queuing url to be scraped**")
+        # print(data)
+        res = web_service_post(api_url, data)
+
+        #
+        # let's look at what we got back:
+        #
+        if res.status_code == 401:
+            #
+            # queuing failed:
+            #
+            body = res.json()
+            print(body)
+            return None
+
+        if res.status_code == 200:  # success
+            print("Information sucessfully added to catalog")
+            return
+        elif res.status_code in [400, 500]:
+            # we'll have an error message
+            body = res.json()
+            print("**Error:", body)
+            return
+        else:
+            # failed:
+            print("**ERROR: Failed with status code:", res.status_code)
+            print("url: " + baseurl)
+            return
+
+    except Exception as e:
+        logging.error("**ERROR: web_scrape() failed:")
+        logging.error("url: " + baseurl)
+        logging.error(e)
+        return
+
+
 def main():
     try:
         print("** Welcome to FitFinder **")
@@ -373,11 +443,11 @@ def main():
         sys.tracebacklimit = 0
 
         # read the config file to extract the webservice url
-        fitfinder_file = "fitfinder-config.ini"
+        fitfinder_file = "fitfinder-client-config.ini"
         config = configparser.ConfigParser()
         config.read(fitfinder_file)
         baseurl = config.get("client", "webservice")
-        print(baseurl)
+        # print(baseurl)
 
         #
         # initalize login token:
@@ -398,6 +468,8 @@ def main():
                 pass
             elif cmd == 4:
                 token = None
+            elif cmd == 5:
+                web_scrape(baseurl)
             else:
                 print("** Unknown command, try again...")
 
