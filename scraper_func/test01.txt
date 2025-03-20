@@ -1,3 +1,0 @@
-{
-  "body": "{\"url\": \"https://www.asos.com/us/men/ctas/fashion-online-13/cat/?cid=13522\"}"
-}
