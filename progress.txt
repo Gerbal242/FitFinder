@@ -167,4 +167,6 @@ mins to add a feature to this project and it ending up not doing that. Anyway, I
 amazons SQS to queue a request to a lambda worker-scraper function because my api gateway had too short of a timeout. In laymans terms,
 I upload a link to be scraped which talks to a lambda function through api gateway trigger. that lambda function then
 adds the link aswell as a job id into amazons SQS for a seperate lambda function to handle. After the message is sent, the server responds
-with a taskid number that polls the progress of the website being scrapped. 
+with a taskid number that polls the progress of the website being scrapped. (its kinds weird and not linear at all so thats something)
+The information will be inputted into the rds with sizes and colors and everything like that. so my final step now
+is to retrive information. first let me clean up commit, clean up, then commit again.
