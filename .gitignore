@@ -1,4 +1,3 @@
 *.sql
 fitfinder-config.ini
-# ignore the myenv directory
-myenv/
+myenv
