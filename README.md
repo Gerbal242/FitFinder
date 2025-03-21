@@ -123,7 +123,7 @@ The client provides the following options:
 - **3:** View Catalog
 - **4:** Log Out
 - **5:** Web Scrape (Developer tool)
-- **6:** Poll Tasks
+- **6:** Poll Tasks (Developer tool)
 
 Follow the on-screen prompts to interact with the FitFinder service.
 
@@ -157,5 +157,5 @@ Follow the on-screen prompts to interact with the FitFinder service.
 
 ## Acknowledgements
 
-- Original authorization logic adapted from work by Dilan Nair and Joseph Hummel.
-- Special thanks to contributors and community members for their feedback during development.
+- Original authorization logic adapted from work by Dilan Nair and Professor Joseph Hummel.
+- Special thanks to the course CS 310 at Northwestern University for introducing me to the world of AWS
