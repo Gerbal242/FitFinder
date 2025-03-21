@@ -170,3 +170,9 @@ adds the link aswell as a job id into amazons SQS for a seperate lambda function
 with a taskid number that polls the progress of the website being scrapped. (its kinds weird and not linear at all so thats something)
 The information will be inputted into the rds with sizes and colors and everything like that. so my final step now
 is to retrive information. first let me clean up commit, clean up, then commit again.
+
+After commiting my cleanups, what I will now work on is polling the db to see the status of our taskid.
+
+Alright so I was able to finalize the polling system, made the client support for it, finished the display of catalogs and I 
+am pretty much done. I just need to showcase the product and I will be finished. super fun project def think I have improved
+my aws basic understanding and am excited to showcase this project and for all the next ones to come!
